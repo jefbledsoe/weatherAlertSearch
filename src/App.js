@@ -1,6 +1,6 @@
 import React from "react";
 // TODO: import useFormik from formik library
-import { useFormik } from "formik";
+//import { useFormik } from "formik";
 import axios, { all } from "axios";
 import { useState, useEffect } from "react";
 //import Showalerts from "...src/components/stateCard";
@@ -59,7 +59,7 @@ function App() {
     "WI",
     "WY",
   ]);
-  const [stateAlerts, setStateAlerts] = useState([]);
+  
 
   // TODO: add a const called formik assigned to useFormik()
   const getAlerts = async () => {
@@ -71,7 +71,7 @@ function App() {
       // console.log(result.data);
       //console.log("before push");
       allStateAlerts.push({
-        StateName: states[i],
+        stateName: states[i],
         features: result.data.features,
       });
     }
@@ -83,19 +83,23 @@ function App() {
     getAlerts();
   }, []);
 
-  function Showalerts(props) {
+  const Showalerts = (props) =>{
     console.log("in showalerts");
-    console.log("props is :", props);
+    //console.log("props is :", props);
+    //console.log("props.alerts[1].stateName is :", props.alerts[1].stateName);
     //cant get props.map to work.....
-    // return (
-    //   <div>
-    //     {props.map((usState) => {
-    //       return(
-    //       <div>{usState}</div>
-    //       )
-    //     })}
-    //   </div>
-    // );
+    return (
+      <div>
+        {
+          () => {
+            for(let i = 0; i < props.alerts.length; i++){
+              console.log("in for loop");
+              console.log("props.alerts[i].stateName is :", props.alerts[i].stateName);
+            }
+          }
+        }
+      </div>
+    );
   }
 
   // if features array len is 0, then no alerts
@@ -105,12 +109,8 @@ function App() {
 
   return (
     <div>
-      <form>
-        <button type="text" name="emailField" placeholder="Email">
-          Hello
-        </button>
-      </form>
-      <Showalerts AlertsObjArray={alerts} />
+      <h1>Weather Alerts</h1>
+      <Showalerts alerts={alerts} />
     </div>
   );
 }
